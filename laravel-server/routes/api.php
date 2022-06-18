@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\QuestionController;
 
 Route::group([
     'middleware' => 'api',
@@ -20,3 +21,11 @@ Route::group([
     Route::post('/createNewSurvey', [SurveyController::class, 'createNewSurvey']);    
 });
 Route::get('/surveys', [SurveyController::class, 'getAllSurveys']);
+
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'admin'
+], function ($router) {
+    Route::post('/createNewQuestion', [QuestionController::class, 'createNewQuestion']);    
+});
