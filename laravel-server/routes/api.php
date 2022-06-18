@@ -21,6 +21,7 @@ Route::group([
     Route::post('/createNewSurvey', [SurveyController::class, 'createNewSurvey']);    
 });
 Route::get('/surveys', [SurveyController::class, 'getAllSurveys']);
+Route::post('/getSurvey', [SurveyController::class, 'getSurvey']);
 
 
 Route::group([
