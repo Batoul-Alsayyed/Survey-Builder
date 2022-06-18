@@ -7,7 +7,7 @@ use Validator;
 
 class SurveyController extends Controller{
     public function __construct() {
-        $this->middleware('auth:api', ['except' => ['createNewSurvey']]);
+        $this->middleware('auth:api', ['except' => ['createNewSurvey','getAllSurveys']]);
     }
     public function createNewSurvey(Request $request) {
         $validator = Validator::make($request->all(), [
@@ -24,6 +24,14 @@ class SurveyController extends Controller{
             'message' => 'survey successfully registered',
             'survey' => $survey
         ], 201);
+    }
+    public function getAllSurveys(){
+        $surveys = Survey::all();
+        
+        return response()->json([
+            "status" => "Success",
+            "surveys" => $surveys
+        ], 200);
     }
 
 }
