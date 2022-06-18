@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 use App\Models\Survey;
+use App\Models\Question;
 use Illuminate\Http\Request;
 use Validator;
 
 class SurveyController extends Controller{
     public function __construct() {
-        $this->middleware('auth:api', ['except' => ['createNewSurvey','getAllSurveys']]);
+        $this->middleware('auth:api', ['except' => ['createNewSurvey','getAllSurveys','getSurvey']]);
     }
     public function createNewSurvey(Request $request) {
         $validator = Validator::make($request->all(), [
@@ -31,6 +32,14 @@ class SurveyController extends Controller{
         return response()->json([
             "status" => "Success",
             "surveys" => $surveys
+        ], 200);
+    }
+    public function getSurvey(Request $request){
+        $survey_id =  $request->survey_id;
+        $survey_questions = Question::where('survey_id',$survey_id)->get();
+        return response()->json([
+            "status" => "Success",
+            "questions" => $survey_questions
         ], 200);
     }
 
