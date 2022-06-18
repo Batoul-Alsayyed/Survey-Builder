@@ -19,3 +19,4 @@ Route::group([
 ], function ($router) {
     Route::post('/createNewSurvey', [SurveyController::class, 'createNewSurvey']);    
 });
+Route::get('/surveys', [SurveyController::class, 'getAllSurveys']);
