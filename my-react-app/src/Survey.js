@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react'
 import axios from 'axios';
 
 export default function Survey() {
+    function viewSurvey(){
+        console.log("view survey clicked!");
+    }
     const [surveys, setSurveys] = useState([]);
     useEffect (() => {
             axios.get("http://127.0.0.1:8000/api/surveys").then(({data})=>{
@@ -29,6 +32,7 @@ export default function Survey() {
                 <td>{survey.id}</td>
                 <td>{survey.name}</td>
                 <td><button>Add question</button></td>
+                <td><button onClick={viewSurvey}>View Survey</button></td>
                 </tr>
             )
         })}
