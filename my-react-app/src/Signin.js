@@ -6,6 +6,8 @@ import axios from 'axios';
 import React, { useState } from "react";
 
 export default function Signin() {
+  let navigate = useNavigate();
+
   // let history = useHistory();
   <Routes>
     <Route path="/Register" element={<Register />} />
@@ -53,6 +55,9 @@ export default function Signin() {
           if(user.data.response!="User Not Found"){
                   console.log("logged in")
                   console.log(user.data.user)
+                  if (user.data.user.type === "admin"){
+                    navigate("/admin")
+                  }
           }
           else{
               alert("Wrong email or password!");
