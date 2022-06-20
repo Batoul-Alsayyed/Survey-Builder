@@ -2,7 +2,7 @@ import Register from "./Register";
 import { useNavigate } from "react-router-dom";
 import { Router } from "react-router";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
-
+import axios from 'axios';
 import React, { useState } from "react";
 
 export default function Signin() {
@@ -11,7 +11,7 @@ export default function Signin() {
     <Route path="/Register" element={<Register />} />
   </Routes>;
 
-  const [data, setData] = useState(null);
+  const [data1, setData] = useState(null);
   const [print, setPrint] = useState(false);
 
   const [data2, setData2] = useState(null);
@@ -36,9 +36,30 @@ export default function Signin() {
   function registerOnClick(){
     setPrint(true);
     setPrint2(true);
+
     if (print && print2){
-      console.log(data);
+      console.log(data1);
       console.log(data2);
+
+      let data = new FormData();
+      data.append('email', data1);
+      data.append('password', data2);
+  
+      axios({
+          method: 'POST',
+          url:'http://127.0.0.1:8000/api/auth/login',
+          data: data
+      }).then(function(user){
+          if(user.data.response!="User Not Found"){
+                  console.log("logged in")
+                  console.log(user.data.user)
+          }
+          else{
+              alert("Wrong email or password!");
+          }
+      });
+
+      
     }
   }
   return (
