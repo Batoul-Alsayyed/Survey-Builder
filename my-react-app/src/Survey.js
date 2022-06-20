@@ -2,10 +2,16 @@ import React from 'react'
 import './App.css';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
-
+import {BrowserRouter as Router} from 'react-router-dom'
+import {useNavigate, useParams } from "react-router-dom"
 export default function Survey() {
-    function viewSurvey(){
+  let navigate = useNavigate();
+
+    const handleClick = (event, param) => {
         console.log("view survey clicked!");
+        console.log(param);
+        const url = "/SpecificSurvey/"+param;
+        navigate(url);
     }
     const [surveys, setSurveys] = useState([]);
     useEffect (() => {
@@ -17,6 +23,7 @@ export default function Survey() {
 
   return (
     <div>
+      
       <h1>Survey Name</h1>
       <table>
         <tbody>
@@ -32,7 +39,8 @@ export default function Survey() {
                 <td>{survey.id}</td>
                 <td>{survey.name}</td>
                 <td><button>Add question</button></td>
-                <td><button onClick={viewSurvey}>View Survey</button></td>
+                <td><button onClick={event => handleClick(event, survey.id)}>View Survey</button></td>
+                
                 </tr>
             )
         })}
