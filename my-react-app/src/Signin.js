@@ -56,7 +56,7 @@ export default function Signin() {
                   console.log("logged in")
                   console.log(user.data.user)
                   if (user.data.user.type === "admin"){
-                    navigate("/admin")
+                    navigate("/Survey")
                   }
           }
           else{
